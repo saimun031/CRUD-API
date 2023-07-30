@@ -20,9 +20,11 @@
         <td>
           <!-- edit -->
           <!-- <button class="btn btn-primary" @click="edit(user.id)">Edit</button> -->
-           <router-link class="btn btn-primary" to="/update-data"> Edit </router-link>
+          
+           <router-link class="btn btn-primary" :to="'/update-data/' + user.id"> Edit </router-link>
+          
           <!-- delete -->
-          &nbsp;<button class="btn btn-danger" @click="deletedata(user.id)">
+          &nbsp;<button class="btn btn-danger" @click.prevent="deletedata(user.id)">
             Delete
           </button>
         </td>
@@ -35,6 +37,7 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import axios from "axios";
+import router from '@/router';
 
 export default {
   name: "App",
@@ -71,13 +74,17 @@ export default {
 
       let x = window.confirm("You want to delete the data?");
       if(x){
-      axios.delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user" + id);
-      console.log(this.users);
+      axios.delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" + id)
+      .then((res) => {
+             console.log(res.users);
       alert("Data Deleted");
+          router.push('/');
+        });
+   
     }
+    router.push('/');
           },
 
-          
 //  deletedata(id) {
 //     axios.delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user" + id)
 //     .then(()=>{

@@ -2,52 +2,63 @@
   <div>
     <h1>Update data</h1>
     <br />
+    <form class="input-feild" @submit.prevent="updateUser">
     <label>Name: </label>
     <input
       type="text"
-      v-model="user.name"
+      v-model="users.name"
       placeholder="enter your name"
       required
     />
     <br /><br />
     <label>Age: </label>
-    <input type="text" 
-    v-model="user.age" 
-    placeholder="enter your Age" 
-    required
+    <input
+      type="text"
+      v-model="users.age"
+      placeholder="enter your Age"
+      required
     />
-      
-  <div>
-    <br />
-    <button  @click="update" class="btn btn-primary">Update</button>
-  </div>
 
+    <div>
+      <br />
+      <button class="btn btn-primary">Update</button>
+    </div>
+</form>
   </div>
-
 </template>
 <script>
+import router from "@/router";
 import axios from "axios";
-import router from '@/router';
 export default {
-  name: "creatApi",
+  name: "updateApi",
+  props: ["id"],
   data() {
     return {
-        user: {
-          name: "",
-          age: "",
-        },
+      user: [],
+      users: {
+        name: "",
+        age: "",
+      },
     };
   },
   methods: {
-    update() {
-    //   this.update = true;
-      axios
-        .put("https://64ae4376c85640541d4cb33a.mockapi.io/api/user",this.user.id)
-        .then((res) => {
-          console.log(res.data);
-          router.push('/');
-        });
-        
+    async updateUser() {
+      try {
+        const users = await axios.put(
+          "https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" +
+            this.$route.params.id,
+          {
+            name: this.users.name,
+            age: this.users.age,
+          }
+        );
+
+        console.log(users.data);
+        alert("User updated!");
+        router.push('/');
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
