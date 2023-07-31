@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Show data</h1>
+    <h1>Show Post</h1>
     <br />
     <label>Title: </label>
     {{ post.title }}

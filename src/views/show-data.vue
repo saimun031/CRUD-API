@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Show data</h1>
+    <h1>Show User</h1>
     <br />
     <!-- <div v-for="user in users" :key="user.id"> -->
     <label>Name: </label>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Update data</h1>
+    <h1>Update User</h1>
     <br />
     <form class="input-feild" @submit.prevent="updateUser">
       <label>Name: </label>

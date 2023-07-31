@@ -2,7 +2,7 @@
   <router-link class="btn1 btn btn-primary" to="/post">Post data</router-link>
   <h1>Learn AXIOS Api</h1>
   <div class="table">
-    <router-link class="btn btn-primary" to="/add-data"> Add Data </router-link>
+    <router-link class="btn btn-primary" to="/add-data"> Add User </router-link>
     <br /><br />
     <table class="table table-bordered">
       <thead>
@@ -19,7 +19,7 @@
           <!-- edit -->
           <!-- <button class="btn btn-primary" @click="edit(user.id)">Edit</button> -->
           <router-link class="btn btn-success" :to="'/show-data/' + user.id">
-            Show Data
+            Show User
           </router-link>
           &nbsp;
           <router-link class="btn btn-info" :to="'/update-data/' + user.id">
