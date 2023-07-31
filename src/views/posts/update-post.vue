@@ -1,20 +1,20 @@
 <template>
   <div>
-    <h1>Update data</h1>
+    <h1>Update Post</h1>
     <br />
     <form class="input-feild" @submit.prevent="updateUser">
-      <label>Name: </label>
+      <label>Title: </label>
       <input
         type="text"
-        v-model="users.name"
+        v-model="post.title"
         placeholder="enter your name"
         required
       />
       <br /><br />
-      <label>Age: </label>
+      <label>Description: </label>
       <input
-        type="text"
-        v-model="users.age"
+        type="textarea"
+        v-model="post.description"
         placeholder="enter your Age"
         required
       />
@@ -24,7 +24,7 @@
       </div>
     </form>
     <br />
-    <router-link class="btn btn-primary" to="/">Go Back</router-link>
+    <router-link class="btn btn-primary" to="/post">Go Back</router-link>
   </div>
 </template>
 <script>
@@ -35,10 +35,10 @@ export default {
   props: ["id"],
   data() {
     return {
-      user: [],
-      users: {
-        name: "",
-        age: "",
+      posts: [],
+      post: {
+        title: "",
+        description: "",
       },
     };
   },
@@ -49,29 +49,29 @@ export default {
     all() {
       axios
         .get(
-          `https://64ae4376c85640541d4cb33a.mockapi.io/api/user/${this.$route.params.id}`
+          `https://64ae4376c85640541d4cb33a.mockapi.io/api/posts/${this.$route.params.id}`
         )
         .then(
           (res) =>
-            (this.users = res.data)
+            (this.post = res.data)
         )
         .catch((error) => console.log(error));
     },
 
     async updateUser() {
       try {
-        const users = await axios.put(
-          "https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" +
+        const post = await axios.put(
+          "https://64ae4376c85640541d4cb33a.mockapi.io/api/posts/" +
             this.$route.params.id,
           {
-            name: this.users.name,
-            age: this.users.age,
+            title: this.post.title,
+            description: this.post.description,
           }
         );
 
-        console.log(users.data);
+        console.log(post.data);
         alert("User updated!");
-        router.push("/");
+        router.push("/post");
       } catch (e) {
         console.log(e);
       }

@@ -1,21 +1,21 @@
 <template>
   <div>
-    <h1>Add data</h1>
+    <h1>Creat Post</h1>
     <br />
     <form class="input-feild" @submit.prevent="creatdata">
-      <label>Name: </label>
+      <label>Title: </label>
       <input
         type="text"
-        v-model="user.name"
-        placeholder="enter your name"
+        v-model="posts.title"
+        placeholder="enter your title"
         required
       />
       <br /><br />
-      <label>Age: </label>
+      <label>Description: </label>
       <input
-        type="text"
-        v-model="user.age"
-        placeholder="enter your Age"
+        type="textarea"
+        v-model="posts.description"
+        placeholder="enter your description"
         required
       />
 
@@ -24,8 +24,6 @@
         <button class="btn btn-primary">submit</button>
       </div>
     </form>
-       <br>
-        <router-link class="btn btn-primary" to="/">Go Back</router-link>
   </div>
 </template>
 <script>
@@ -35,18 +33,18 @@ export default {
   name: "creatApi",
   data() {
     return {
-      user: {
-        name: "",
-        age: "",
+      posts: {
+        title: "",
+        description: "",
       },
     };
   },
   methods: {
     creatdata() {
       axios
-        .post("https://64ae4376c85640541d4cb33a.mockapi.io/api/user", this.user)
+        .post("https://64ae4376c85640541d4cb33a.mockapi.io/api/posts", this.posts)
         .then(() => {
-          router.push("/");
+          router.push("/post");
         });
     },
   },

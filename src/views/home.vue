@@ -1,10 +1,8 @@
 <template>
-  <img alt="Vue logo" src="../assets/logo.png" />
+  <router-link class="btn1 btn btn-primary" to="/post">Post data</router-link>
   <h1>Learn AXIOS Api</h1>
-
   <div class="table">
     <router-link class="btn btn-primary" to="/add-data"> Add Data </router-link>
-
     <br /><br />
     <table class="table table-bordered">
       <thead>
@@ -20,11 +18,19 @@
         <td>
           <!-- edit -->
           <!-- <button class="btn btn-primary" @click="edit(user.id)">Edit</button> -->
-          
-           <router-link class="btn btn-primary" :to="'/update-data/' + user.id"> Edit </router-link>
-          
+          <router-link class="btn btn-success" :to="'/show-data/' + user.id">
+            Show Data
+          </router-link>
+          &nbsp;
+          <router-link class="btn btn-info" :to="'/update-data/' + user.id">
+            Edit
+          </router-link>
+
           <!-- delete -->
-          &nbsp;<button class="btn btn-danger" @click.prevent="deletedata(user.id)">
+          &nbsp;<button
+            class="btn btn-danger"
+            @click.prevent="deletedata(user.id)"
+          >
             Delete
           </button>
         </td>
@@ -35,14 +41,12 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import axios from "axios";
-import router from '@/router';
+
 
 export default {
   name: "App",
   components: {
-    // HelloWorld
   },
   data() {
     return {
@@ -51,56 +55,29 @@ export default {
   },
   mounted() {
     this.all();
-    //  .then(response => this.user = response.data)
   },
   methods: {
-    add() {
-      axios.post(`https://64ae4376c85640541d4cb33a.mockapi.io/api/user`, {
-        // id,
-        // name,
-        // age
-      });
-    },
-    edit(id) {
-      id;
-      axios.put(`https://64ae4376c85640541d4cb33a.mockapi.io/api/user`, {
-        // id,
-        // name,
-        // age,
-      });
-    },
     deletedata(id) {
-        console.log(id)
+      console.log(id);
 
       let x = window.confirm("You want to delete the data?");
-      if(x){
-      axios.delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" + id)
-      .then((res) => {
-             console.log(res.users);
-      alert("Data Deleted");
-          router.push('/');
-        });
-   
-    }
-    router.push('/');
-          },
-
-//  deletedata(id) {
-//     axios.delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user" + id)
-//     .then(()=>{
-//     this.all();
-//  })
-//  },
-
+      if (x) {
+        axios
+          .delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" + id)
+          .then((res) => {
+            console.log(res.users);
+            alert("Data Deleted");
+            this.all();
+          });
+      }
+    },
 
     all() {
       axios
         .get("https://64ae4376c85640541d4cb33a.mockapi.io/api/user")
         .then(
           (res) =>
-            // this.user=res.data;
             (this.users = res.data)
-          //console.log(res.data)
         )
         .catch((error) => console.log(error));
     },
@@ -130,5 +107,9 @@ button {
   padding: 10px;
   font-size: 15px;
   /* border-radius: 5px; */
+}
+.btn1{
+  /* margin-top: -25%; */
+  margin-right: 80%;
 }
 </style>
