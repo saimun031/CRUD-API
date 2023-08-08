@@ -11,7 +11,8 @@
         <th>Age</th>
         <th>Action</th>
       </thead>
-      <tbody v-for="user in users" :key="user.id">
+      <!-- <tbody v-for="user in users" :key="user.id"> -->
+        <tbody  v-for="(user, index) in users" :key="index" >
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.age }}</td>
@@ -27,7 +28,13 @@
           </router-link>
 
           <!-- delete -->
-          &nbsp;<button
+          <!-- &nbsp;<button
+            class="btn btn-danger"
+            @click.prevent="deletedata(user.id)"
+          >
+            Delete
+          </button> -->
+         &nbsp; <button
             class="btn btn-danger"
             @click.prevent="deletedata(user.id)"
           >
@@ -41,8 +48,8 @@
 </template>
 
 <script>
-import axios from "axios";
-
+// import axios from "axios";
+import { mapState } from 'vuex';
 
 export default {
   name: "App",
@@ -50,7 +57,7 @@ export default {
   },
   data() {
     return {
-      users: {},
+      user: {},
     };
   },
   mounted() {
@@ -58,30 +65,27 @@ export default {
   },
   methods: {
     deletedata(id) {
-      console.log(id);
+this.$store.dispatch('deletedata', id);
+this.all();
 
-      let x = window.confirm("You want to delete the data?");
-      if (x) {
-        axios
-          .delete("https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" + id)
-          .then((res) => {
-            console.log(res.users);
-            alert("Data Deleted");
-            this.all();
-          });
-      }
     },
 
     all() {
-      axios
-        .get("https://64ae4376c85640541d4cb33a.mockapi.io/api/user")
-        .then(
-          (res) =>
-            (this.users = res.data)
-        )
-        .catch((error) => console.log(error));
+      this.$store.dispatch('loadPost');
     },
   },
+  computed:{
+  ...mapState([
+    'users'
+  ]),
+
+    userId() {
+      // Access the router ID as 'userId' from Vue Router's $route
+      return this.$route.params.id;
+      
+    },
+},
+
 };
 </script>
 

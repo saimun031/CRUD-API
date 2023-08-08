@@ -29,8 +29,9 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import router from "@/router";
+// import axios from "axios";
+// import router from "@/router";
+import { mapState } from 'vuex';
 export default {
   name: "creatApi",
   data() {
@@ -43,13 +44,14 @@ export default {
   },
   methods: {
     creatdata() {
-      axios
-        .post("https://64ae4376c85640541d4cb33a.mockapi.io/api/user", this.user)
-        .then(() => {
-          router.push("/");
-        });
+        this.$store.dispatch('creatdata', this.user);
     },
   },
+  computed:{
+  ...mapState([
+    'users'
+  ])
+}
 };
 </script>
 

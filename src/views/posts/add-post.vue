@@ -25,10 +25,12 @@
       </div>
     </form>
   </div>
+  <br><router-link class="btn btn-primary" to="/post">Go Back</router-link>
 </template>
 <script>
 import axios from "axios";
 import router from "@/router";
+// import { mapState } from 'vuex';
 export default {
   name: "creatApi",
   data() {
@@ -46,8 +48,14 @@ export default {
         .then(() => {
           router.push("/post");
         });
+      // this.$store.dispatch('creatdata');
     },
   },
+  computed:{
+  // ...mapState([
+  //   'posts'
+  // ])
+}
 };
 </script>
 

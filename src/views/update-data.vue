@@ -3,6 +3,13 @@
     <h1>Update User</h1>
     <br />
     <form class="input-feild" @submit.prevent="updateUser">
+            <label>ID: </label>
+      <input
+        type="text"
+        v-model="users.id"
+        placeholder="enter your name"
+        required
+      /> <br /><br />
       <label>Name: </label>
       <input
         type="text"
@@ -39,6 +46,7 @@ export default {
       users: {
         name: "",
         age: "",
+        id:"",
       },
     };
   },

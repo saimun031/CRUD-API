@@ -3,6 +3,9 @@
     <h1>Show User</h1>
     <br />
     <!-- <div v-for="user in users" :key="user.id"> -->
+         <label>ID: </label>
+    {{ users.id }}
+    <br />
     <label>Name: </label>
     {{ users.name }}
     <br />
