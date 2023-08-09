@@ -25,7 +25,7 @@ export default createStore({
 
     //ADD Post
     creatdata({ commit }, user) {
-          // console.log(user);    
+      // console.log(user);
       axios
         .post(`https://64ae4376c85640541d4cb33a.mockapi.io/api/user/`, user)
         .then(() => {
@@ -51,6 +51,41 @@ export default createStore({
         }
       }
     },
+
+    //show data
+    all({ commit }, userss) {
+      console.log(userss);
+      axios
+        .get(`https://64ae4376c85640541d4cb33a.mockapi.io/api/user/${userss}`)
+        .then((res) => {
+          userss = res.data;
+          commit("Show_POST", userss);
+          console.log(userss);
+        }, console.log(userss))
+
+        .catch((error) => console.log(error));
+    },
+
+    //update data
+    updateUser({ commit }, users) {
+      console.log(users);
+      try {
+        axios.put(
+          `https://64ae4376c85640541d4cb33a.mockapi.io/api/user/`, users,
+          {
+            id: users.id,
+            name: users.name,
+            age: users.age,
+          }
+        );
+        commit("Update_POST", users);
+        console.log(users);
+        alert("User updated!");
+        router.push("/");
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 
   mutations: {
@@ -67,6 +102,16 @@ export default createStore({
     // DELETE userId
     delet_POST(state, userId) {
       state.users = userId;
+    },
+
+    //SHOW post
+    Show_POST(state, userss) {
+      state.users = userss;
+    },
+
+    //UPDATE Post
+    Update_POST(state, users) {
+      state.users = users;
     },
   },
   getters: {},

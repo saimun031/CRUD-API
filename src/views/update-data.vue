@@ -3,13 +3,14 @@
     <h1>Update User</h1>
     <br />
     <form class="input-feild" @submit.prevent="updateUser">
-            <label>ID: </label>
-      <input
+            <label>ID: {{ users.id }}</label>
+      <!-- <input
         type="text"
         v-model="users.id"
         placeholder="enter your name"
         required
-      /> <br /><br />
+      />  -->
+      <br /><br />
       <label>Name: </label>
       <input
         type="text"
@@ -35,7 +36,8 @@
   </div>
 </template>
 <script>
-import router from "@/router";
+import { mapState } from 'vuex';
+// import router from "@/router";
 import axios from "axios";
 export default {
   name: "updateApi",
@@ -67,24 +69,30 @@ export default {
     },
 
     async updateUser() {
-      try {
-        const users = await axios.put(
-          "https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" +
-            this.$route.params.id,
-          {
-            name: this.users.name,
-            age: this.users.age,
-          }
-        );
+      // try {
+      //   const users = await axios.put(
+      //     "https://64ae4376c85640541d4cb33a.mockapi.io/api/user/" +
+      //       this.$route.params.id,
+      //     {
+      //       name: this.users.name,
+      //       age: this.users.age,
+      //     }
+      //   );
 
-        console.log(users.data);
-        alert("User updated!");
-        router.push("/");
-      } catch (e) {
-        console.log(e);
-      }
+      //   console.log(users.data);
+      //   alert("User updated!");
+      //   router.push("/");
+      // } catch (e) {
+      //   console.log(e);
+      // }
+       this.$store.dispatch('updateUser', this.$route.params.id);
     },
   },
+  computed:{
+  ...mapState([
+    'users'
+  ]),
+}
 };
 </script>
 

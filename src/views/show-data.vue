@@ -19,13 +19,14 @@
   <!-- {{ this.$route.params.id }} -->
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
+import { mapState } from 'vuex';
 export default {
   name: "updateApi",
   props: ["id"],
   data() {
     return {
-      users: {},
+      userss: {},
     };
   },
   mounted() {
@@ -33,14 +34,21 @@ export default {
   },
   methods: {
     all() {
-      axios
-        .get(
-          `https://64ae4376c85640541d4cb33a.mockapi.io/api/user/${this.$route.params.id}`
-        )
-        .then((res) => (this.users = res.data))
-        .catch((error) => console.log(error));
+      // axios
+      //   .get(
+      //     `https://64ae4376c85640541d4cb33a.mockapi.io/api/user/${this.$route.params.id}`
+      //   )
+      //   .then((res) => (this.users = res.data))
+      //   .catch((error) => console.log(error));
+
+        this.$store.dispatch('all', this.$route.params.id);
     },
   },
+    computed:{
+  ...mapState([
+    'users'
+  ]),
+}
 };
 </script>
 
